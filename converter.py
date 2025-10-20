@@ -64,11 +64,12 @@ class VideoToGifConverter:
             # Palette generation
             colors = self.config.get('colors', 256)
             filters.append(f"palettegen=max_colors={colors}:stats_mode=diff")
+            return ",".join(filters)
         else:
             # Use palette for final GIF
-            filters.append("[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=5")
-        
-        return ",".join(filters)
+            # Return base filters and paletteuse separately to be combined properly
+            base_filters = ",".join(filters)
+            return f"{base_filters}[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=5"
     
     def _generate_palette(self, palette_path):
         """
