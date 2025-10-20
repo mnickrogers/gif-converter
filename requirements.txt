@@ -1,0 +1,12 @@
+# video2gif requirements
+# 
+# Note: This tool primarily uses Python's standard library (subprocess, argparse, pathlib).
+# The main external dependency is FFmpeg, which must be installed separately on the system.
+#
+# FFmpeg installation:
+# - macOS: brew install ffmpeg
+# - Ubuntu/Debian: sudo apt-get install ffmpeg
+# - Windows: Download from https://ffmpeg.org/download.html
+
+# No Python package dependencies required for core functionality
+# All imports use standard library modules
