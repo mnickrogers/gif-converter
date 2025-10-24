@@ -18,7 +18,8 @@ from utils import (
     check_ffmpeg_installed,
     expand_file_patterns,
     format_size,
-    get_video_duration
+    get_video_duration,
+    get_video_fps
 )
 
 def create_parser():
@@ -37,7 +38,7 @@ Examples:
   # Convert with high quality preset
   video2gif input.mp4 -q high
 
-  # Convert with maximum quality (30fps, 4K resolution)
+  # Convert with maximum quality (source fps, 4K resolution)
   video2gif input.mp4 -q max
 
   # Convert and ensure output is under 5MB
@@ -132,22 +133,32 @@ Examples:
 def apply_smart_defaults(config, input_path):
     """
     Apply smart defaults based on video properties.
-    
+
     Args:
         config: Configuration dictionary
         input_path: Path to input video
-        
+
     Returns:
         Updated configuration dictionary
     """
+    # If fps is None, auto-detect from source video
+    if config.get('fps') is None:
+        source_fps = get_video_fps(input_path)
+        if source_fps:
+            # Cap at 50 fps to avoid extremely large files
+            config['fps'] = min(int(source_fps), 50)
+        else:
+            # Fallback to 30 fps if detection fails
+            config['fps'] = 30
+
     # Get video duration for smart FPS adjustment
     duration = get_video_duration(input_path)
-    
+
     if duration:
         # For very short videos (< 3s), increase FPS slightly for smoother playback
-        if duration < 3 and not config.get('fps'):
-            config['fps'] = min(config.get('fps', 15) + 5, 30)
-    
+        if duration < 3 and config.get('fps') and config.get('fps') < 30:
+            config['fps'] = min(config['fps'] + 5, 30)
+
     return config
 
 def process_video(input_path, output_path, config):

@@ -23,7 +23,7 @@ PRESETS = {
         'description': 'High quality, larger file size'
     },
     'max': {
-        'fps': 30,
+        'fps': None,  # Auto-detect from source video
         'width': 2160,
         'colors': 256,
         'description': 'Maximum quality, very large file size'

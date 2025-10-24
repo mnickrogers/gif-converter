@@ -46,7 +46,7 @@ python video2gif.py myvideo.mp4 --fps 10 --width 600
 - **low**: 10fps, 480px, 128 colors (small files)
 - **medium**: 15fps, 720px, 256 colors (default, balanced)
 - **high**: 20fps, 1080px, 256 colors (best quality)
-- **max**: 30fps, 2160px, 256 colors (maximum quality, very large files)
+- **max**: source fps, 2160px, 256 colors (maximum quality, very large files)
 
 ## Tips
 

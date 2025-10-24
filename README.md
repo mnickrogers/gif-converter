@@ -69,7 +69,7 @@ python video2gif.py input.mp4 -q medium
 # High quality (larger file size)
 python video2gif.py input.mp4 -q high
 
-# Maximum quality (30fps, 4K resolution)
+# Maximum quality (source fps, 4K resolution)
 python video2gif.py input.mp4 -q max
 ```
 
@@ -77,7 +77,7 @@ python video2gif.py input.mp4 -q max
 - **low**: 10fps, 480px width, 128 colors
 - **medium**: 15fps, 720px width, 256 colors
 - **high**: 20fps, 1080px width, 256 colors
-- **max**: 30fps, 2160px width, 256 colors
+- **max**: source fps (auto-detected, capped at 50), 2160px width, 256 colors
 
 ### File Size Targeting
 

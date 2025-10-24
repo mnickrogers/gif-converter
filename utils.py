@@ -40,10 +40,10 @@ def validate_video_file(filepath):
 def get_video_duration(filepath):
     """
     Get the duration of a video file in seconds using ffprobe.
-    
+
     Args:
         filepath: Path to the video file
-        
+
     Returns:
         Duration in seconds as float, or None if unable to determine
     """
@@ -57,6 +57,34 @@ def get_video_duration(filepath):
         )
         return float(result.stdout.strip())
     except (subprocess.CalledProcessError, ValueError, FileNotFoundError):
+        return None
+
+def get_video_fps(filepath):
+    """
+    Get the frame rate of a video file using ffprobe.
+
+    Args:
+        filepath: Path to the video file
+
+    Returns:
+        Frame rate as float, or None if unable to determine
+    """
+    try:
+        result = subprocess.run(
+            ['ffprobe', '-v', 'error', '-select_streams', 'v:0',
+             '-show_entries', 'stream=r_frame_rate',
+             '-of', 'default=noprint_wrappers=1:nokey=1', str(filepath)],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        # Frame rate is returned as a fraction (e.g., "30000/1001" or "30/1")
+        fps_str = result.stdout.strip()
+        if '/' in fps_str:
+            num, denom = fps_str.split('/')
+            return float(num) / float(denom)
+        return float(fps_str)
+    except (subprocess.CalledProcessError, ValueError, FileNotFoundError, ZeroDivisionError):
         return None
 
 def get_output_path(input_path, output_arg, batch_mode=False):
