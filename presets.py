@@ -21,6 +21,12 @@ PRESETS = {
         'width': 1080,
         'colors': 256,
         'description': 'High quality, larger file size'
+    },
+    'max': {
+        'fps': 30,
+        'width': 2160,
+        'colors': 256,
+        'description': 'Maximum quality, very large file size'
     }
 }
 

@@ -33,19 +33,22 @@ Quality Presets:
 Examples:
   # Convert single video with medium quality
   video2gif input.mp4
-  
+
   # Convert with high quality preset
   video2gif input.mp4 -q high
-  
+
+  # Convert with maximum quality (30fps, 4K resolution)
+  video2gif input.mp4 -q max
+
   # Convert and ensure output is under 5MB
   video2gif input.mp4 --max-size 5
-  
+
   # Convert multiple videos to a directory
   video2gif *.mp4 -o gifs/
-  
+
   # Custom settings: 10fps, 600px wide
   video2gif input.mp4 --fps 10 --width 600
-  
+
   # Trim video (first 10 seconds only)
   video2gif input.mp4 --start 0 --end 10
 """
